@@ -1,0 +1,81 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+
+# Virtual Environment
+venv/
+env/
+.env
+.venv
+ENV/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data Files
+data/raw/
+data/processed/
+*.csv
+*.json
+*.parquet
+*.xlsx
+*.xls
+
+# Model Files
+models/
+*.pkl
+*.joblib
+*.h5
+*.pt
+*.pth
+artifacts/
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# Logs
+logs/
+*.log
+
+# Environment Variables
+.env
+.env.local
+.env.production
+
+# Docker
+.dockerignore
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Distribution / Packaging
+*.tar.gz
+*.zip
+
+# Evidently Reports
+reports/
