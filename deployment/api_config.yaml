@@ -1,0 +1,86 @@
+app:
+  name: Supply Chain Sales Prediction API
+  version: "1.0.0"
+  description: FastAPI inference service for XGBoost supply chain sales prediction
+  team: Team C
+  organization: Evoastra Ventures (OPC) Pvt Ltd
+
+server:
+  host: 0.0.0.0
+  port: 8000
+  workers: 1
+  log_level: info
+  reload: false
+
+model:
+  path: models/best_model.pkl
+  type: XGBoostRegressor
+  version: "1.0.0"
+  target: sales
+  transform: log_scale
+  inverse_transform: expm1
+
+artifacts:
+  columns_path: artifacts/columns.pkl
+  preprocessor_path: artifacts/preprocessor.pkl
+
+features:
+  numerical:
+    - days_for_shipping_real
+    - days_for_shipment_scheduled
+    - order_item_quantity
+    - product_price
+    - delivery_days
+    - lag_1
+    - rolling_mean
+    - order_day
+    - order_week
+    - order_month
+    - weekday
+    - is_weekend
+  categorical:
+    - shipping_mode
+    - order_status
+    - market
+    - customer_segment
+    - order_region
+    - category_name
+    - department_name
+
+endpoints:
+  predict:
+    path: /predict
+    method: POST
+    description: Predict sales value for a single order
+  predict_batch:
+    path: /predict/batch
+    method: POST
+    description: Predict sales values for multiple orders
+  health:
+    path: /health
+    method: GET
+    description: Health check endpoint
+  shap:
+    path: /explain
+    method: POST
+    description: Return SHAP explanation for a single prediction
+
+mlflow:
+  tracking_uri: http://mlflow:5000
+  experiment_name: supply_chain_sales_prediction
+  model_registry_name: best_xgb_model
+
+monitoring:
+  enable_drift_detection: true
+  drift_tool: evidently
+  reference_data_path: data/processed/reference.csv
+  alert_threshold: 0.1
+
+cors:
+  allow_origins:
+    - "*"
+  allow_methods:
+    - GET
+    - POST
+  allow_headers:
+    - "*"
